@@ -24,6 +24,10 @@ class TestImOnix < Minitest::Test
       assert_equal "immateriel.fr-O192530", @product.record_reference
     end
 
+    should "have proprietary ids" do
+      assert_equal 'O192530', @product.proprietary_ids.first[:value]
+    end
+
     should "have title" do
       assert_equal "Certaines n'avaient jamais vu la mer", @product.title
     end
@@ -68,6 +72,13 @@ class TestImOnix < Minitest::Test
       assert_equal 1400, @product.supplies_for_country("CH","CHF").first[:prices].first[:amount]
     end
 
+    should "have sender named" do
+      assert_equal "immatériel·fr", @message.sender.name
+    end
+
+    should "not have a sender with a GLN" do
+      assert_equal nil, @message.sender.gln
+    end
   end
 
   context "prices with past change time" do
@@ -171,5 +182,20 @@ class TestImOnix < Minitest::Test
       assert_equal 250, @product.at_time_price_amount_for(Time.new(2013,6,10),"CHF","CH")
     end
 
+  end
+
+  context "Hex Hall - tome 2" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/9782226260499.xml")
+      @product=@message.products.last
+    end
+
+    should "have a named sender with a GLN" do
+      assert_equal "Hachette Livre", @message.sender.name
+      #assert_equal "Xxxx Xxxxxx", @message.sender.contact_name
+      #assert_equal "xxxxx@xxxxxxxx.fr", @message.sender.email_address
+      assert_equal "3010955600100", @message.sender.gln
+    end
   end
 end

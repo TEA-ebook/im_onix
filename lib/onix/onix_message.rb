@@ -30,6 +30,8 @@ module ONIX
         end
       end
     end
+
+    include GlnMethods
   end
 
   class ONIXMessage
