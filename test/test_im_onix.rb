@@ -179,4 +179,19 @@ class TestImOnix < Minitest::Test
     end
 
   end
+
+  context "Hex Hall - tome 2" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/9782226260499.xml")
+      @product=@message.products.last
+    end
+
+    should "have a named sender" do
+      assert_equal "Hachette Livre", @message.sender.name
+      #assert_equal "Xxxx Xxxxxx", @message.sender.contact_name
+      #assert_equal "xxxxx@xxxxxxxx.fr", @message.sender.email_address
+      assert_equal "3010955600100", @message.sender.gln
+    end
+  end
 end
