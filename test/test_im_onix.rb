@@ -75,6 +75,10 @@ class TestImOnix < Minitest::Test
     should "have sender named" do
       assert_equal "immatériel·fr", @message.sender.name
     end
+
+    should "not have a sender with a GLN" do
+      assert_equal nil, @message.sender.gln
+    end
   end
 
   context "prices with past change time" do
@@ -187,7 +191,7 @@ class TestImOnix < Minitest::Test
       @product=@message.products.last
     end
 
-    should "have a named sender" do
+    should "have a named sender with a GLN" do
       assert_equal "Hachette Livre", @message.sender.name
       #assert_equal "Xxxx Xxxxxx", @message.sender.contact_name
       #assert_equal "xxxxx@xxxxxxxx.fr", @message.sender.email_address
