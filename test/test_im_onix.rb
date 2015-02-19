@@ -68,6 +68,9 @@ class TestImOnix < Minitest::Test
       assert_equal 1400, @product.supplies_for_country("CH","CHF").first[:prices].first[:amount]
     end
 
+    should "have sender named" do
+      assert_equal "immatériel·fr", @message.sender.name
+    end
   end
 
   context "prices with past change time" do
