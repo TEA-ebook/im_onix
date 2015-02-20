@@ -28,6 +28,10 @@ class TestImOnix < Minitest::Test
       assert_equal "Certaines n'avaient jamais vu la mer", @product.title
     end
 
+    should "have no format" do
+      assert_equal nil, @product.file_format
+    end
+
     should "have publisher name" do
       assert_equal "Phébus", @product.publisher_name
     end
@@ -67,7 +71,18 @@ class TestImOnix < Minitest::Test
     should "be priced in Switzerland" do
       assert_equal 1400, @product.supplies_for_country("CH","CHF").first[:prices].first[:amount]
     end
+  end
 
+  context 'epub part of "Certaines n’avaient jamais vu la mer"' do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/9782752906700.xml")
+      @product=@message.products[1]
+    end
+
+    should "have epub file format" do
+      assert_equal "Epub", @product.file_format
+    end
   end
 
   context "prices with past change time" do
