@@ -24,6 +24,11 @@ class TestImOnix < Minitest::Test
       assert_equal "immateriel.fr-O192530", @product.record_reference
     end
 
+    should "have a named proprietary id" do
+      assert_equal 'O192530', @product.proprietary_ids.first.value
+      assert_equal 'SKU', @product.proprietary_ids.first.name
+    end
+
     should "have title" do
       assert_equal "Certaines n'avaient jamais vu la mer", @product.title
     end
@@ -92,15 +97,20 @@ class TestImOnix < Minitest::Test
   end
 
   context "epub fixed layout" do
-      setup do
-        @message = ONIX::ONIXMessage.new
-        @message.parse("test/fixtures/fixed_layout.xml")
-        @product = @message.products.last
-      end
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/fixed_layout.xml")
+      @product = @message.products.last
+    end
 
-      should "not be reflowable" do
-        assert_equal false, @product.reflowable?
-      end
+    should "not be reflowable" do
+      assert_equal false, @product.reflowable?
+    end
+
+    should "have a named sender without GLN" do
+      assert_equal "immatériel·fr", @message.sender.name
+      assert_equal nil, @message.sender.gln
+    end
   end
 
   context "prices with past change time" do
@@ -204,5 +214,18 @@ class TestImOnix < Minitest::Test
       assert_equal 250, @product.at_time_price_amount_for(Time.new(2013,6,10),"CHF","CH")
     end
 
+  end
+
+  context "file full-sender.xml" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/full-sender.xml")
+      @product=@message.products.last
+    end
+
+    should "have a named sender with a GLN" do
+      assert_equal "Hxxxxxxx Lxxxx", @message.sender.name
+      assert_equal "42424242424242", @message.sender.gln
+    end
   end
 end
