@@ -29,6 +29,10 @@ class TestImOnix < Minitest::Test
       assert_equal nil, @message.sender.gln
     end
 
+    should "have an EAN13" do
+      assert_equal "9782752908643", @product.ean
+    end
+
     should "have a named proprietary id" do
       assert_equal 'O192530', @product.proprietary_ids.first.value
       assert_equal 'SKU', @product.proprietary_ids.first.name
@@ -102,6 +106,11 @@ class TestImOnix < Minitest::Test
 
     should "have epub file format" do
       assert_equal "Epub", @product.file_format
+    end
+
+    should "be a part of its main product" do
+      assert_equal "9782752908643", @product.part_of_product.ean
+      assert_equal "O192530", @product.part_of_product.proprietary_ids.first.value
     end
   end
 
