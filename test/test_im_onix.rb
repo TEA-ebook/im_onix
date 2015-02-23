@@ -24,6 +24,11 @@ class TestImOnix < Minitest::Test
       assert_equal "immateriel.fr-O192530", @product.record_reference
     end
 
+    should "have a named sender without GLN" do
+      assert_equal "immatériel·fr", @message.sender.name
+      assert_equal nil, @message.sender.gln
+    end
+
     should "have a named proprietary id" do
       assert_equal 'O192530', @product.proprietary_ids.first.value
       assert_equal 'SKU', @product.proprietary_ids.first.name
@@ -31,6 +36,10 @@ class TestImOnix < Minitest::Test
 
     should "have title" do
       assert_equal "Certaines n'avaient jamais vu la mer", @product.title
+    end
+
+    should "have no format" do
+      assert_equal nil, @product.file_format
     end
 
     should "have publisher name" do
@@ -59,6 +68,10 @@ class TestImOnix < Minitest::Test
       end
     end
 
+    should "not provide info about fixed layout or not" do
+      assert_equal nil, @product.reflowable?
+    end
+
     should "have author named" do
       assert_equal "Julie Otsuka", @product.contributors.first.name
     end
@@ -78,9 +91,17 @@ class TestImOnix < Minitest::Test
     should "be priced in Switzerland" do
       assert_equal 1400, @product.supplies_for_country("CH","CHF").first[:prices].first[:amount]
     end
+  end
 
-    should "not provide info about fixed layout or not" do
-      assert_equal nil, @product.reflowable?
+  context 'epub part of "Certaines n’avaient jamais vu la mer"' do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/9782752906700.xml")
+      @product=@message.products[1]
+    end
+
+    should "have epub file format" do
+      assert_equal "Epub", @product.file_format
     end
   end
 
@@ -105,11 +126,6 @@ class TestImOnix < Minitest::Test
 
     should "not be reflowable" do
       assert_equal false, @product.reflowable?
-    end
-
-    should "have a named sender without GLN" do
-      assert_equal "immatériel·fr", @message.sender.name
-      assert_equal nil, @message.sender.gln
     end
   end
 
