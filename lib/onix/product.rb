@@ -38,6 +38,7 @@ module ONIX
 
 
     include EanMethods
+    include ProprietaryIdMethods
 
     # :category: High level
     # product title string
@@ -222,6 +223,10 @@ module ONIX
     # digital file format string (Epub,Pdf,Mobipocket)
     def file_format
       @descriptive_detail.file_format
+    end
+
+    def reflowable?
+      return @descriptive_detail.reflowable?
     end
 
     # :category: High level
