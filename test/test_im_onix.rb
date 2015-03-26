@@ -109,6 +109,18 @@ class TestImOnix < Minitest::Test
     end
   end
 
+  context 'master part of "Certaines n’avaient jamais vu la mer"' do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/9782752906700.xml")
+      @product=@message.products.first
+    end
+
+    should "be streaming" do
+      assert @product.streaming?
+    end
+  end
+
   context 'epub part of "Certaines n’avaient jamais vu la mer"' do
     setup do
       @message = ONIX::ONIXMessage.new
