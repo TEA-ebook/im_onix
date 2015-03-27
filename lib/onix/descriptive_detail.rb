@@ -386,7 +386,7 @@ module ONIX
     end
 
     def streaming?
-      @form.code=="EC"
+      @form.human=="DigitalOnline"
     end
 
     def bundle?
