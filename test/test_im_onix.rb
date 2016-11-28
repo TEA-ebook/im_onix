@@ -833,4 +833,21 @@ class TestImOnix < Minitest::Test
       assert_equal nil, prices[4][:until_date]
     end
   end
+
+  context 'with a product that is a chapter of a collection' do
+    setup do
+      message = ONIX::ONIXMessage.new
+      message.parse('test/fixtures/collection-product.xml')
+
+      @product = message.products.last
+    end
+
+    should 'have the right title' do
+      assert_equal 'Product title, in the collection', @product.title
+    end
+
+    should 'have the right collection' do
+      assert_equal 'Our awesome collection', @product.publisher_collection_title
+    end
+  end
 end

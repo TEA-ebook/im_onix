@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ONIXMessage xmlns="http://www.editeur.org/onix/3.0/reference" release="3.0">
+    <Header xmlns="http://www.editeur.org/onix/3.0/reference"/>
+    <Product xmlns="http://www.editeur.org/onix/3.0/reference">
+        <RecordReference>9782816116435</RecordReference>
+        <NotificationType>02</NotificationType>
+        <!-- <NotificationType> : list #1 "Notification or update type code" -->
+        <!-- code #02 "Advance notification (confirmed)" : Use for a complete record issued to confirm advance information approximately six months before publication; or for a complete record issued after that date and before information has been confirmed from the book-in-hand. -->
+        <ProductIdentifier>
+            <ProductIDType>03</ProductIDType>
+            <!-- <ProductIDType> : list #5 "Product identifier type code" -->
+            <!-- code #03 "GTIN-13" : GS1 Global Trade Item Number, formerly known as EAN article number (13 digits). -->
+            <IDValue>9782816116435</IDValue>
+        </ProductIdentifier>
+        <DescriptiveDetail>
+            <ProductComposition>00</ProductComposition>
+            <!-- <ProductComposition> : list #2 "Product composition" -->
+            <!-- code #00 "Single-item retail product" :  -->
+            <ProductForm>ED</ProductForm>
+            <!-- <ProductForm> : list #150 "Product form" -->
+            <!-- code #ED "Digital download" : Digital content delivered by download only. -->
+            <ProductFormDetail>E101</ProductFormDetail>
+            <!-- <ProductFormDetail> : list #175 "Product form detail" -->
+            <!-- code #E101 "EPUB" : The Open Publication Structure / OPS Container Format standard of the International Digital Publishing Forum (IDPF) [File extension .epub]. -->
+            <ProductFormDescription>EPub</ProductFormDescription>
+            <EpubTechnicalProtection>02</EpubTechnicalProtection>
+            <!-- <EpubTechnicalProtection> : list #144 "E-publication technical protection" -->
+            <!-- code #02 "Digital watermarking" : Has digital watermarking. -->
+            <Collection>
+                <CollectionType>10</CollectionType>
+                <!-- <CollectionType> : list #148 "Collection type" -->
+                <!-- code #10 "Publisher collection" : The collection is a bibliographic collection (eg a series) defined and identified by a publisher, either on the product itself or in product information supplied by the publisher. -->
+                <CollectionIdentifier>
+                    <CollectionIDType>01</CollectionIDType>
+                    <IDValue>5311</IDValue>
+                </CollectionIdentifier>
+                <TitleDetail>
+                    <TitleType>01</TitleType>
+                    <!-- <TitleType> : list #15 "Title type code" -->
+                    <!-- code #01 "Distinctive title (book); Cover title (serial); Title on item (serial content item or reviewed resource)" : The full text of the distinctive title of the item, without abbreviation or abridgement. For books, where the title alone is not distinctive, elements may be taken from a set or series title and part number etc to create a distinctive title. Where the item is an omnibus edition containing two or more works by the same author, and there is no separate combined title, a distinctive title may be constructed by concatenating the individual titles, with suitable punctuation, as in “Pride and prejudice / Sense and sensibility / Northanger Abbey”. -->
+                    <TitleElement>
+                        <TitleElementLevel>02</TitleElementLevel>
+                        <!-- <TitleElementLevel> : list #149 "Title element level" -->
+                        <!-- code #02 "Collection level" : The title element refers to the top level of a bibliographic collection. -->
+                        <TitleText>Our awesome collection</TitleText>
+                    </TitleElement>
+                </TitleDetail>
+            </Collection>
+            <TitleDetail>
+                <TitleType>01</TitleType>
+                <!-- <TitleType> : list #15 "Title type code" -->
+                <!-- code #01 "Distinctive title (book); Cover title (serial); Title on item (serial content item or reviewed resource)" : The full text of the distinctive title of the item, without abbreviation or abridgement. For books, where the title alone is not distinctive, elements may be taken from a set or series title and part number etc to create a distinctive title. Where the item is an omnibus edition containing two or more works by the same author, and there is no separate combined title, a distinctive title may be constructed by concatenating the individual titles, with suitable punctuation, as in “Pride and prejudice / Sense and sensibility / Northanger Abbey”. -->
+                <TitleElement>
+                    <TitleElementLevel>04</TitleElementLevel>
+                    <!-- <TitleElementLevel> : list #149 "Title element level" -->
+                    <!-- code #04 "Content item" : The title element refers to a content item within a product, eg a work included in a combined or ‘omnibus’ edition, or a chapter in a book. -->
+                    <TitleText textcase="01">Product title, in the collection</TitleText>
+                </TitleElement>
+            </TitleDetail>
+            <Contributor>
+                <SequenceNumber>1</SequenceNumber>
+                <ContributorRole>A01</ContributorRole>
+                <!-- <ContributorRole> : list #17 "Contributor role code" -->
+                <!-- code #A01 "By (author)" : Author of a textual work. -->
+                <PersonName>Collectif</PersonName>
+                <KeyNames>Collectif</KeyNames>
+            </Contributor>
+            <Language>
+                <LanguageRole>01</LanguageRole>
+                <!-- <LanguageRole> : list #22 "Language role code" -->
+                <!-- code #01 "Language of text" :  -->
+                <LanguageCode>fre</LanguageCode>
+                <!-- <LanguageCode> : list #74 "Language code – ISO 639-2/B" -->
+                <!-- code #fre "French" :  -->
+            </Language>
+            <Extent>
+                <ExtentType>22</ExtentType>
+                <!-- <ExtentType> : list #23 "Extent type code" -->
+                <!-- code #22 "Filesize" : The size of a digital file, expressed in the specified extent unit. -->
+                <ExtentValue>11266458</ExtentValue>
+                <ExtentUnit>17</ExtentUnit>
+                <!-- <ExtentUnit> : list #24 "Extent unit code" -->
+                <!-- code #17 "Bytes" :  -->
+            </Extent>
+            <Extent>
+                <ExtentType>10</ExtentType>
+                <!-- <ExtentType> : list #23 "Extent type code" -->
+                <!-- code #10 "Notional number of pages in digital product" : An estimate of the number of ‘pages’ in a digital product delivered without fixed pagination, and with no print counterpart, given as an indication of the size of the work. Equivalent to code 08, but for exclusively digital products. -->
+                <ExtentValue>187</ExtentValue>
+                <ExtentUnit>03</ExtentUnit>
+                <!-- <ExtentUnit> : list #24 "Extent unit code" -->
+                <!-- code #03 "Pages" :  -->
+            </Extent>
+            <Subject>
+                <SubjectSchemeIdentifier>29</SubjectSchemeIdentifier>
+                <!-- <SubjectSchemeIdentifier> : list #27 "Subject scheme identifier code" -->
+                <!-- code #29 "CLIL" : France. A four-digit number, see http://www.clil.org/information/documentation.html (in French). The first digit identifies the version of the scheme. -->
+                <SubjectSchemeVersion>DILICOM20</SubjectSchemeVersion>
+                <SubjectCode>3804</SubjectCode>
+                <SubjectHeadingText>Guides de tourisme (destination)</SubjectHeadingText>
+            </Subject>
+            <Subject>
+                <MainSubject/>
+                <SubjectSchemeIdentifier>29</SubjectSchemeIdentifier>
+                <!-- <SubjectSchemeIdentifier> : list #27 "Subject scheme identifier code" -->
+                <!-- code #29 "CLIL" : France. A four-digit number, see http://www.clil.org/information/documentation.html (in French). The first digit identifies the version of the scheme. -->
+                <SubjectCode>2811</SubjectCode>
+                <SubjectHeadingText>Guide</SubjectHeadingText>
+            </Subject>
+            <Subject>
+                <SubjectSchemeIdentifier>20</SubjectSchemeIdentifier>
+                <!-- <SubjectSchemeIdentifier> : list #27 "Subject scheme identifier code" -->
+                <!-- code #20 "Keywords" : Where multiple keywords or keyword phrases are sent in a single instance of the <SubjectHeadingText> element, it is recommended that they should be separated by semi-colons (this is consistent with Library of Congress preferred practice). -->
+                <SubjectHeadingText>Asie</SubjectHeadingText>
+            </Subject>
+            <Audience>
+                <AudienceCodeType>01</AudienceCodeType>
+                <!-- <AudienceCodeType> : list #29 "Audience code type" -->
+                <!-- code #01 "ONIX audience codes" : Using a code from List 28. -->
+                <AudienceCodeValue>01</AudienceCodeValue>
+            </Audience>
+        </DescriptiveDetail>
+        <CollateralDetail>
+            <TextContent>
+                <TextType>03</TextType>
+                <!-- <TextType> : list #153 "Text type" -->
+                <!-- code #03 "Description" : Length unrestricted. -->
+                <ContentAudience>00</ContentAudience>
+                <!-- <ContentAudience> : list #154 "Content audience" -->
+                <!-- code #00 "Unrestricted" : Any audience. -->
+                <Text textformat="05">&lt;p&gt;Ce chapitre est issu du guide consacréà la destination. Tous les
+                    chapitres sont disponibles et vendus séparément. Vous pouvez également acheter le guide complet.&lt;/p&gt;
+                </Text>
+            </TextContent>
+        </CollateralDetail>
+        <ContentDetail>
+            <ContentItem>
+                <TextItem>
+                    <TextItemType>03</TextItemType>
+                    <!-- <TextItemType> : list #42 "Text item type code" -->
+                    <!-- code #03 "Body matter" : Text components such as Part, Chapter, Section etc which appear as part of the main body of text content in a product. -->
+                </TextItem>
+                <ComponentTypeName>chapitre</ComponentTypeName>
+            </ContentItem>
+        </ContentDetail>
+        <PublishingDetail>
+            <Publisher>
+                <PublishingRole>01</PublishingRole>
+                <!-- <PublishingRole> : list #45 "Publishing role code" -->
+                <!-- code #01 "Publisher" :  -->
+                <PublisherName>Awesome Publisher</PublisherName>
+            </Publisher>
+            <CityOfPublication>Paris</CityOfPublication>
+            <CountryOfPublication>FR</CountryOfPublication>
+            <!-- <CountryOfPublication> : list #91 "Country code – ISO 3166-1" -->
+            <!-- code #FR "France" :  -->
+            <PublishingStatus>08</PublishingStatus>
+            <!-- <PublishingStatus> : list #64 "Publishing status" -->
+            <!-- code #08 "Inactive" : The product was active, but is now permanently or indefinitely inactive in the sense that the publisher will not accept orders for it, though stock may still be available elsewhere in the supply chain. Code 08 covers both of codes 06 and 07, and may be used where the distinction between those values is either unnecessary or meaningless. -->
+            <PublishingDate>
+                <PublishingDateRole>01</PublishingDateRole>
+                <!-- <PublishingDateRole> : list #163 "Publishing date role" -->
+                <!-- code #01 "Publication date" : Nominal date of publication. -->
+                <DateFormat>00</DateFormat>
+                <!-- <DateFormat> : list #55 "Date format" -->
+                <!-- code #00 "YYYYMMDD" : Year month day (default). -->
+                <Date>20110615</Date>
+            </PublishingDate>
+            <SalesRights>
+                <SalesRightsType>01</SalesRightsType>
+                <!-- <SalesRightsType> : list #46 "Sales rights type code" -->
+                <!-- code #01 "For unrestricted sale with exclusive rights in the specified countries or territories" :  -->
+                <Territory>
+                    <RegionsIncluded>WORLD</RegionsIncluded>
+                    <!-- <RegionsIncluded> : list #49 "Region code" -->
+                    <!-- code #WORLD "World" :  -->
+                </Territory>
+            </SalesRights>
+        </PublishingDetail>
+        <RelatedMaterial/>
+        <ProductSupply>
+            <SupplyDetail>
+                <Supplier>
+                    <SupplierRole>06</SupplierRole>
+                    <!-- <SupplierRole> : list #93 "Supplier role" -->
+                    <!-- code #06 "Publisher’s distributor to retailers" : In a specified supply territory. Use only where exclusive/non-exclusive status is not known. Prefer 02 or 03 as appropriate, where possible. -->
+                    <SupplierIdentifier>
+                        <SupplierIDType>06</SupplierIDType>
+                        <!-- <SupplierIDType> : list #92 "Supplier identifier type" -->
+                        <!-- code #06 "GLN" : GS1 global location number (formerly EAN location number). -->
+                        <IDValue>supplier-gln</IDValue>
+                    </SupplierIdentifier>
+                    <SupplierName>Awesome Supplier</SupplierName>
+                </Supplier>
+                <ProductAvailability>40</ProductAvailability>
+                <!-- <ProductAvailability> : list #65 "Product availability" -->
+                <!-- code #40 "Not available (reason unspecified)" : Not available from us (for any reason). -->
+                <Price>
+                    <PriceType>03</PriceType>
+                    <!-- <PriceType> : list #58 "Price type code" -->
+                    <!-- code #03 "Fixed retail price excluding tax" : In countries where retail price maintenance applies by law to certain products: not used in USA. -->
+                    <PriceAmount>3.26</PriceAmount>
+                    <CurrencyCode>EUR</CurrencyCode>
+                    <!-- <CurrencyCode> : list #96 "Currency code – ISO 4217" -->
+                    <!-- code #EUR "Euro" : Andorra, Austria, Belgium, Cyprus, Estonia, Finland, France, Fr Guiana, Fr S Territories, Germany, Greece, Guadeloupe, Holy See (Vatican City), Ireland, Italy, Luxembourg, Martinique, Malta, Mayotte, Monaco, Montenegro, Netherlands, Portugal, Réunion, St Pierre and Miquelon, San Marino, Spain. -->
+                </Price>
+                <Price>
+                    <PriceType>04</PriceType>
+                    <!-- <PriceType> : list #58 "Price type code" -->
+                    <!-- code #04 "Fixed retail price including tax" : In countries where retail price maintenance applies by law to certain products: not used in USA. -->
+                    <PriceAmount>3.49</PriceAmount>
+                    <CurrencyCode>EUR</CurrencyCode>
+                    <!-- <CurrencyCode> : list #96 "Currency code – ISO 4217" -->
+                    <!-- code #EUR "Euro" : Andorra, Austria, Belgium, Cyprus, Estonia, Finland, France, Fr Guiana, Fr S Territories, Germany, Greece, Guadeloupe, Holy See (Vatican City), Ireland, Italy, Luxembourg, Martinique, Malta, Mayotte, Monaco, Montenegro, Netherlands, Portugal, Réunion, St Pierre and Miquelon, San Marino, Spain. -->
+                </Price>
+            </SupplyDetail>
+        </ProductSupply>
+    </Product>
+</ONIXMessage>
