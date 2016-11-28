@@ -352,7 +352,12 @@ module ONIX
     end
 
     def product_title_element
-      @title_details.select { |td| td.type.human=~/DistinctiveTitle/ }.first.title_elements.select{ |te| te.level.human=~/Product/ }.first
+      title_elements = @title_details.find { |td| td.type.human =~ /DistinctiveTitle/ }.title_elements
+
+      product_title = title_elements.find { |te| te.level.human =~ /Product/ }
+      return product_title unless product_title.nil?
+
+      title_elements.find { |te| te.level.human == 'ContentItem' }
     end
 
     def pages_extent
