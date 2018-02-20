@@ -938,4 +938,29 @@ class TestImOnix < Minitest::Test
       assert_equal '200.20001.2000115', @product.proprietary_categories[3].code
     end
   end
+
+  context "with usage constraints" do
+    setup do
+      message = ONIX::ONIXMessage.new
+      message.parse('test/fixtures/9782752906700.xml')
+
+      @product = message.products.last
+    end
+
+    should "have 3 constraints filled" do
+      constraint = @product.descriptive_detail.epub_usage_constraints[0]
+      limits = constraint.limits
+
+      assert_equal 3, limits.size
+
+      assert_equal 'Days', limits[0].unit.human
+      assert_equal 999999, limits[0].quantity
+
+      assert_equal 'Times', limits[1].unit.human
+      assert_equal 999999, limits[1].quantity
+
+      assert_equal 'ConcurrentUsers', limits[2].unit.human
+      assert_equal 1, limits[2].quantity
+    end
+  end
 end

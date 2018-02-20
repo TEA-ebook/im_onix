@@ -264,6 +264,26 @@
     <ProductComposition>10</ProductComposition>
     <ProductForm>EA</ProductForm>
     <ProductFormDescription>Multi-format incluant Accès streaming, Mobipocket avec Tatouage et ePub avec Tatouage</ProductFormDescription>
+    <EpubUsageConstraint>
+      <!-- Loan-related -->
+      <EpubUsageType>06</EpubUsageType>
+      <EpubUsageStatus>02</EpubUsageStatus>
+      <EpubUsageLimit>
+        <!-- Max loan duration, in days -->
+        <Quantity>999999</Quantity>
+        <EpubUsageUnit>09</EpubUsageUnit>
+      </EpubUsageLimit>
+      <EpubUsageLimit>
+        <!-- Maximum number of loans -->
+        <Quantity>999999</Quantity>
+        <EpubUsageUnit>10</EpubUsageUnit>
+      </EpubUsageLimit>
+      <EpubUsageLimit>
+        <!-- Maximum number of simultaneous loans -->
+        <Quantity>1</Quantity>
+        <EpubUsageUnit>07</EpubUsageUnit>
+      </EpubUsageLimit>
+    </EpubUsageConstraint>
     <ProductPart>
       <ProductIdentifier>
         <ProductIDType>01</ProductIDType>
