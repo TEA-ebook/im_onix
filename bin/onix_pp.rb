@@ -210,6 +210,16 @@ msg.products.each do |product|
     puts " Not sold separately"
   end
 
+  if product.descriptive_detail.epub_usage_constraints.length > 0
+    puts "Usage constraints:"
+    product.descriptive_detail.epub_usage_constraints.each do |usage_constraints|
+      puts " #{usage_constraints.type.human}:"
+      usage_constraints.limits.each do |constraint|
+        puts "  #{constraint.unit.human}: #{constraint.quantity}"
+      end
+    end
+  end
+
   end
 else
   puts "ONIX 3.0 pretty printer"
