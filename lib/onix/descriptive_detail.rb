@@ -335,7 +335,8 @@ module ONIX
                   :subjects,
                   :collections,
                   :extents,
-                  :epub_technical_protections
+                  :epub_technical_protections,
+                  :epub_usage_constraints
 
     def initialize
       @title_details=[]
@@ -350,7 +351,6 @@ module ONIX
       @languages=[]
       @form_details=[]
       @form_features=[]
-
     end
 
     # :category: High level
