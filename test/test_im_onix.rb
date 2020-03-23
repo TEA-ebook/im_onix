@@ -124,6 +124,11 @@ class TestImOnix < Minitest::Test
       assert_equal "Julie Otsuka", @product.contributors.first.name
     end
 
+    should "have an author NameIdentifier" do
+      assert_equal "A77052", @product.contributors.first.name_identifier.id_value
+      assert_equal "01", @product.contributors.first.name_identifier.name_id_type.code
+    end
+
     should "have author inverted named" do
       assert_equal "Otsuka, Julie", @product.contributors.first.inverted_name
     end
