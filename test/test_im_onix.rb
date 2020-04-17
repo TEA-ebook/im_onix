@@ -86,6 +86,10 @@ class TestImOnix < Minitest::Test
       assert_nil @product.embargo_date
     end
 
+    should "be no print publication date" do
+      assert_nil @product.print_publication_date
+    end
+
     should "be in french" do
       assert_equal "fre", @product.language_code_of_text
     end
