@@ -987,7 +987,7 @@ class TestImOnix < Minitest::Test
       assert_equal true, @product.illustrated?
     end
 
-    should "be an original digital product" do
+    should "is not an original digital product" do
       assert_equal false, @product.digital_original?
     end
 
@@ -995,4 +995,18 @@ class TestImOnix < Minitest::Test
       assert_equal true, @product.enhanced?
     end
   end
+
+  context "with an edition type digital original" do
+    setup do
+      message = ONIX::ONIXMessage.new
+      message.parse('test/fixtures/test_dgo.xml')
+
+      @product = message.products.last
+    end
+
+    should "be an original digital product" do
+      assert_equal false, @product.digital_original?
+    end
+  end
+
 end
