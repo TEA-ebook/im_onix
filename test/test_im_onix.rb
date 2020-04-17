@@ -623,6 +623,10 @@ class TestImOnix < Minitest::Test
       assert_equal "04", @product.descriptive_detail.audience_range.last[:precision].code
       assert_equal "99", @product.descriptive_detail.audience_range.last[:value]
     end
+
+    should "have a print publication date" do
+      assert_equal "2004-08-20T00:00:00+0200", @product.print_publication_date.strftime('%Y-%m-%dT%H:%M:%S%z')
+    end
   end
 
   context "onix without any SupplyDate" do
@@ -930,7 +934,7 @@ class TestImOnix < Minitest::Test
     end
 
     should "have a correct publication date" do
-      assert_equal '2016-08-23T06:00:00+0200', @product.publication_date.strftime('%Y-%m-%dT%H:%M:%S%z')
+      assert_equal '2016-08-23T04:00:00+0000', @product.publication_date.strftime('%Y-%m-%dT%H:%M:%S%z')
     end
   end
 
