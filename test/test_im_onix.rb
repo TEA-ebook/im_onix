@@ -1005,7 +1005,7 @@ class TestImOnix < Minitest::Test
     end
 
     should "be an original digital product" do
-      assert_equal false, @product.digital_original?
+      assert_equal true, @product.digital_original?
     end
   end
 
