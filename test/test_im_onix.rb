@@ -987,6 +987,10 @@ class TestImOnix < Minitest::Test
       assert_equal true, @product.illustrated?
     end
 
+    should "be an original digital product" do
+      assert_equal false, @product.digital_original?
+    end
+
     should "be enhanced" do
       assert_equal true, @product.enhanced?
     end

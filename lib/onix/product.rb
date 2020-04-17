@@ -127,6 +127,10 @@ module ONIX
       @descriptive_detail.illustrated?
     end
 
+    def digital_original?
+      @descriptive_detail.digital_original?
+    end
+
     def enhanced?
       @descriptive_detail.enhanced?
     end

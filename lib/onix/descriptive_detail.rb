@@ -524,6 +524,10 @@ module ONIX
       @edition_types.include?('ENH')
     end
 
+    def digital_original?
+      @edition_types.include?('DGO')
+    end
+
     def parse(n)
 
       n.children.each do |t|
