@@ -13,6 +13,22 @@ class TestImOnix < Minitest::Test
     assert_equal "04", discount.code
   end
 
+  context "contributor with several NameIdentifiers" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/multiple_name_identifiers.xml")
+      @product=@message.products.last
+    end
+
+    should "has several NameIdentifiers" do
+      assert_equal "A77052", @product.contributors.first.name_identifiers[0].id_value
+      assert_equal "01", @product.contributors.first.name_identifiers[0].name_id_type.code
+
+      assert_equal "N25430", @product.contributors.first.name_identifiers[1].id_value
+      assert_equal "16", @product.contributors.first.name_identifiers[1].name_id_type.code
+    end
+  end
+
   context "certaines n'avaient jamais vu la mer" do
     setup do
       @message = ONIX::ONIXMessage.new
@@ -125,8 +141,8 @@ class TestImOnix < Minitest::Test
     end
 
     should "have an author NameIdentifier" do
-      assert_equal "A77052", @product.contributors.first.name_identifier.id_value
-      assert_equal "01", @product.contributors.first.name_identifier.name_id_type.code
+      assert_equal "A77052", @product.contributors.first.name_identifiers.first.id_value
+      assert_equal "01", @product.contributors.first.name_identifiers.first.name_id_type.code
     end
 
     should "have author inverted named" do
