@@ -23,9 +23,11 @@ class TestImOnix < Minitest::Test
     should "has several NameIdentifiers" do
       assert_equal "A77052", @product.contributors.first.name_identifiers[0].id_value
       assert_equal "01", @product.contributors.first.name_identifiers[0].name_id_type.code
+      assert_equal "Generic Propiretary Name", @product.contributors.first.name_identifiers[0].id_type_name
 
       assert_equal "N25430", @product.contributors.first.name_identifiers[1].id_value
       assert_equal "16", @product.contributors.first.name_identifiers[1].name_id_type.code
+      assert_nil @product.contributors.first.name_identifiers[1].id_type_name
     end
   end
 
