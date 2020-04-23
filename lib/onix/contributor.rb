@@ -87,7 +87,7 @@ module ONIX
     end
 
     class ContributorNameIdentifier < Subset
-      attr_accessor :name_id_type, :id_value
+      attr_accessor :name_id_type, :id_value, :id_type_name
 
       def parse(p)
         p.children.each do |t|
@@ -96,6 +96,8 @@ module ONIX
               @name_id_type = ContributorNameIdentifierNameIDType.from_code(t.text)
             when 'IDValue'
               @id_value = t.text
+            when 'IDTypeName'
+              @id_type_name = t.text
           end
         end
       end
