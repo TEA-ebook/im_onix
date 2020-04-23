@@ -20,3 +20,15 @@
   '23': VatIdentityNumber
   '24': JpDistributionIdentifier
   '25': Gnd
+  '26': Duns
+  '27': RinggoldId
+  '28': IdentifiantEditeurElectre
+  '29': EidrPartyDoi
+  '30': IdentifiantMarqueElectre
+  '31': ViafId
+  '32': FundrefDoi
+  '33': BneCn
+  '34': BnfControlNumber
+  '35': Ark
+  '36': NasjonaltAutoritetsregister
+  '37': Grid
