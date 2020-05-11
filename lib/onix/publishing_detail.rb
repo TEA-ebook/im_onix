@@ -152,40 +152,29 @@ module ONIX
       end
     end
 
+    def print_publication_date
+      pub=@publishing_dates.find{|pd| pd.role.human=="PublicationDateOfPrintCounterpart"}
+      return pub.date.date if pub
+    end
+
     def publication_date
-      pub=@publishing_dates.select{|pd| pd.role.human=="PublicationDate" or pd.role.human=="PublicationDateOfPrintCounterpart"}.first
-      if pub
-        pub.date.date
-      else
-        nil
-      end
+      pub=@publishing_dates.find{|pd| pd.role.human=="PublicationDate" or pd.role.human=="PublicationDateOfPrintCounterpart"}
+      return pub.date.date if pub
     end
 
     def embargo_date
-      pub=@publishing_dates.select{|pd| pd.role.human=="EmbargoDate"}.first
-      if pub
-        pub.date.date
-      else
-        nil
-      end
+      pub=@publishing_dates.find{|pd| pd.role.human=="EmbargoDate"}
+      return pub.date.date if pub
     end
 
     def preorder_embargo_date
-      pub=@publishing_dates.select{|pd| pd.role.human=="PreorderEmbargoDate"}.first
-      if pub
-        pub.date.date
-      else
-        nil
-      end
+      pub=@publishing_dates.find{|pd| pd.role.human=="PreorderEmbargoDate"}
+      return pub.date.date if pub
     end
 
     def public_announcement_date
-      pub=@publishing_dates.select{|pd| pd.role.human=="PublicAnnouncementDate"}.first
-      if pub
-        pub.date.date
-      else
-        nil
-      end
+      pub=@publishing_dates.find{|pd| pd.role.human=="PublicAnnouncementDate"}
+      return pub.date.date if pub
     end
 
     def sales_restriction
