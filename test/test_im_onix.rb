@@ -439,9 +439,12 @@ class TestImOnix < Minitest::Test
     end
 
     should "have a supply with a price for 3 other countries" do
-      priced_supply = @product.supplies.first
-      assert_equal 1, priced_supply[:prices].size
-      assert_equal 3, priced_supply[:territory].size
+      priced_supplies = @product.supplies.select{|s| s[:prices] }
+      # A supply for each country
+      assert_equal 3, priced_supplies.size
+      priced_supplies.each do |s|
+        assert_equal 1, s[:prices].size
+      end
     end
 
     should "have a supply free of charge for 8 countries" do
@@ -459,12 +462,14 @@ class TestImOnix < Minitest::Test
       @product=@message.products.last
     end
 
-    should "have a supply with a price in Franec" do
-      supply = @product.supplies.first
+    should "have a supply with a price in France" do
+      frsupply = @product.supplies.select {|s| s[:territory].first == "FR"}
 
-      assert_equal 1, supply[:prices].size
-      assert_equal 0, supply[:prices].first[:amount]
-      assert_equal 7, supply[:territory].size
+      assert_equal 8, @product.supplies.size
+      assert_equal 0, @product.supplies.first[:prices].first[:amount]
+
+      assert_equal 1, frsupply.size
+      assert_equal 3000, frsupply.first[:prices].first[:amount]
     end
 
     should "have a supply free of charge for 8 countries" do
