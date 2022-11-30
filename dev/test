@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+"$SCRIPT_DIR"/run ruby -Ilib:test test/test_im_onix.rb "$@"

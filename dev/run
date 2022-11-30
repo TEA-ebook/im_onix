@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# Same as what we use for tearex:
+DOCKER_IMG='ruby:2.3-stretch'
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+docker run --rm -it \
+    --mount type=bind,source="$SCRIPT_DIR/..",target=/usr/src \
+    --workdir /usr/src \
+    --env BUNDLE_PATH=vendor \
+    "$DOCKER_IMG" \
+    "$@"

@@ -556,7 +556,7 @@ class TestImOnix < Minitest::Test
     should "have a front cover illustration with a last update date printed in UTC" do
       assert_equal 'FrontCover', @product.illustrations.first[:type]
       assert_equal 'Couverture principale', @product.illustrations.first[:caption]
-      assert_equal '20121104T230000+0000', @product.illustrations.first[:updated_at]
+      assert_equal '20121105T000000+0000', @product.illustrations.first[:updated_at]
     end
 
     should "have a publisher logo illustration" do
@@ -580,7 +580,7 @@ class TestImOnix < Minitest::Test
       assert_equal 'Epub', @product.excerpts.first[:format_code]
       assert_equal 'DownloadableFile', @product.excerpts.first[:form]
       assert_equal 'e32ef9a1c1e63c96567b542f6e691530', @product.excerpts.first[:md5]
-      assert_equal '20121015T220000+0000', @product.excerpts.first[:updated_at]
+      assert_equal '20121016T000000+0000', @product.excerpts.first[:updated_at]
     end
 
     should "have 1 sample URL" do

@@ -25,12 +25,9 @@ onix3_to_onix3.rb onix.xml
 ```
 ### Development
 
-#### Running the tests
-
-Launch this command:
-
-```
-ruby -Ilib:test test/test_im_onix.rb
+```bash
+dev/install # install dependencies
+dev/test # run the tests
 ```
 
 ### Contributors
