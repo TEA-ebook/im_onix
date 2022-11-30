@@ -1,5 +1,6 @@
 # coding: utf-8
 require 'helper'
+require 'pry'
 
 class TestImOnix < Minitest::Test
   def test_products_discount
@@ -720,6 +721,19 @@ class TestImOnix < Minitest::Test
       assert_equal 2, @product.contributors.select{|c| c.role.human=="ByAuthor"}.length
     end
 
+    should "have contributor name identifier details" do
+      translators = @product.contributors.select{|c| c.role.human=="TranslatedBy"}
+
+      assert_equal 1, translators.length
+      translator = translators.first
+
+      assert_equal 1, translator.name_identifiers.length
+      name_identifier = translator.name_identifiers.first
+
+      assert_equal "Proprietary", name_identifier.name_id_type.human
+      assert_equal "HCP Author ID", name_identifier.id_type_name
+      assert_equal "11150", name_identifier.id_value
+    end
   end
 
   context "other publication date format" do
