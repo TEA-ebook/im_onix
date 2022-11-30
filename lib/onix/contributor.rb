@@ -75,12 +75,12 @@ module ONIX
       attr_accessor :relator, :country_code
 
       def parse(p)
-        p.children.each do |t|
-          case t.name
-            when "ContributorPlaceRelator"
-              @relator=ContributorPlaceRelator.from_code(t.text)
-            when "CountryCode"
-              @country_code=t.text
+        p.children.each do |tag|
+          case tag
+            when tag_match('ContributorPlaceRelator')
+              @relator=ContributorPlaceRelator.from_code(tag.text)
+            when tag_match('CountryCode')
+              @country_code=tag.text
           end
         end
       end

@@ -734,6 +734,18 @@ class TestImOnix < Minitest::Test
       assert_equal "HCP Author ID", name_identifier.id_type_name
       assert_equal "11150", name_identifier.id_value
     end
+
+    should "have contributor place details" do
+      translators = @product.contributors.select{|c| c.role.human=="TranslatedBy"}
+
+      assert_equal 1, translators.length
+      translator = translators.first
+
+      assert_instance_of ONIX::Contributor::ContributorPlace, translator.place
+
+      assert_equal "CitizenOf", translator.place.relator.human
+      assert_equal "SE", translator.place.country_code
+    end
   end
 
   context "other publication date format" do
