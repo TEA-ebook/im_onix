@@ -610,8 +610,18 @@ module ONIX
         i.select {|k,v| [:available, :availability_date, :availability, :unpriced_item_type, :territory].include?(k) }.hash
       end
 
-      grouped_supplies={}
+      # Need to split supplies by territories
+      territoried_supplies = []
       supplies.each do |supply|
+        supply[:territory].each do |territory|
+          newsupply = supply.clone
+          newsupply[:territory] = [territory]
+          territoried_supplies << newsupply
+        end
+      end
+
+      grouped_supplies={}
+      territoried_supplies.each do |supply|
         pr_key="#{supply[:available]}_#{supply[:including_tax]}_#{supply[:currency]}_#{supply[:territory].join('_')}"
         grouped_supplies[pr_key]||=[]
         grouped_supplies[pr_key] << supply
