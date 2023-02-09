@@ -177,6 +177,15 @@ module ONIX
       self.bisac_categories.map{|c| c.code}.uniq
     end
 
+    # BIC categories Subject
+    def bic_categories
+      @descriptive_detail.bic_categories
+    end
+
+    def bic_categories_codes
+      self.bic_categories.map{|c| c.code}.uniq
+    end
+
     # CLIL categories Subject
     def clil_categories
       @descriptive_detail.clil_categories

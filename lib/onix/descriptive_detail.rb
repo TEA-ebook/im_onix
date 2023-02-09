@@ -503,6 +503,10 @@ module ONIX
       @subjects.select{|s| s.scheme_identifier.human=="BisacSubjectHeading"}
     end
 
+    def bic_categories
+      @subjects.select{|s| s.scheme_identifier.human=="BicSubjectCategory"}
+    end
+
     def clil_categories
       @subjects.select{|s| s.scheme_identifier.human=="Clil"}
     end
