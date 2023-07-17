@@ -549,8 +549,15 @@ module ONIX
       # add territories if missing
       if @product_supplies
         @product_supplies.each do |ps|
-
-          market_territories=ps.markets ? ps.markets.map{|m| m.territory.countries}.flatten.uniq : []
+          if ps.markets && ps.available?
+            if ps.markets.map{|m| m.territory.countries}.flatten.uniq.empty?
+                market_territories = ONIX::Territory.region_to_countries("WORLD")
+            else
+                market_territories = ps.markets.map{|m| m.territory.countries}.flatten.uniq
+            end
+          else
+            market_territories = []
+          end
 
           ps.supply_details.each do |sd|
 
