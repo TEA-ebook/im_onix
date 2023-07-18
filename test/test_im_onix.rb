@@ -1071,4 +1071,32 @@ class TestImOnix < Minitest::Test
     end
   end
 
+  context "without territory specified and product available" do
+    setup do
+      message = ONIX::ONIXMessage.new
+      message.parse('test/fixtures/onix_without_territory.xml')
+
+      @product = message.products.first
+    end
+
+    should "have WORLD territory" do
+      product_territories = @product.supplies.map{|s| s[:territory].first }
+      assert_equal true, ONIX::Territory.worldwide?(product_territories)
+    end
+  end
+
+  context "without territory specified and product not available" do
+     setup do
+       message = ONIX::ONIXMessage.new
+       message.parse('test/fixtures/onix_without_territory.xml')
+
+       @product = message.products.last
+     end
+
+     should "not have WORLD territory" do
+       product_territories = @product.supplies.map{|s| s[:territory].first }
+       assert_equal false, ONIX::Territory.worldwide?(product_territories)
+     end
+  end
+
 end
