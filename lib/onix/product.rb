@@ -549,11 +549,12 @@ module ONIX
       # add territories if missing
       if @product_supplies
         @product_supplies.each do |ps|
-          if ps.markets && ps.available?
-            if ps.markets.map{|m| m.territory.countries}.flatten.uniq.empty?
-                market_territories = ONIX::Territory.region_to_countries("WORLD")
-            else
-                market_territories = ps.markets.map{|m| m.territory.countries}.flatten.uniq
+          if ps.markets
+            market_territories = ps.markets.map{|m| m.territory.countries}.flatten.uniq
+            # To avoid the list of countries being empty in the case where the Market Territory tag is empty and the ebook is available,
+            # we set the WORLD variable in this case.
+            if market_territories.empty? && ps.available?
+              market_territories = ONIX::Territory.region_to_countries("WORLD")
             end
           else
             market_territories = []

@@ -1099,4 +1099,18 @@ class TestImOnix < Minitest::Test
      end
   end
 
+  context "with territory specified and product not available" do
+     setup do
+       message = ONIX::ONIXMessage.new
+       message.parse('test/fixtures/onix_with_territory_and_unavailable.xml')
+
+       @product = message.products.last
+     end
+
+     should "not have territory" do
+       product_territories = @product.supplies.map{|s| s[:territory] }
+       assert_equal false, product_territories.empty?
+     end
+  end
+
 end
