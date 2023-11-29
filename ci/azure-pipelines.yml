@@ -1,0 +1,27 @@
+pool:
+    vmImage: 'ubuntu-latest'
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Nightly
+  branches:
+    include: [ master ]
+  always: yes
+
+trigger: none
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - '*'
+
+jobs:
+- job: Test
+  steps:
+  - script: |
+      dev/install
+    displayName: 'Install dependencies'
+  - script: |
+      dev/test
+    displayName: 'Run the tests'
