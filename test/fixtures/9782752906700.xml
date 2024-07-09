@@ -34,6 +34,14 @@
       <EpubUsageType>03</EpubUsageType>
       <EpubUsageStatus>01</EpubUsageStatus>
     </EpubUsageConstraint>
+    <EpubUsageConstraint>
+      <EpubUsageType>03</EpubUsageType>
+      <EpubUsageStatus>02</EpubUsageStatus>
+      <EpubUsageLimit>
+        <EpubUsageUnit>01</EpubUsageUnit>
+        <Quantity>5</Quantity>
+      </EpubUsageLimit>
+    </EpubUsageConstraint>
     <TitleDetail>
       <TitleType>01</TitleType>
       <TitleElement>
