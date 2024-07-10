@@ -196,6 +196,21 @@ class TestImOnix < Minitest::Test
       assert_equal "04", @product.descriptive_detail.audience_range.last[:precision].code
       assert_equal "8", @product.descriptive_detail.audience_range.last[:value]
     end
+
+    should "have epub usage constraints" do
+      product = @message.products.first
+
+      assert_equal 3, product.descriptive_detail.epub_usage_constraints.size
+
+      assert_equal "02", product.descriptive_detail.epub_usage_constraints.first.type.code
+      assert_equal "03", product.descriptive_detail.epub_usage_constraints.first.status.code
+
+      assert_equal "03", product.descriptive_detail.epub_usage_constraints.last.type.code
+      assert_equal "02", product.descriptive_detail.epub_usage_constraints.last.status.code
+      assert_equal 1, product.descriptive_detail.epub_usage_constraints.last.limits.size
+      assert_equal "01", product.descriptive_detail.epub_usage_constraints.last.limits.first.unit.code
+      assert_equal 5, product.descriptive_detail.epub_usage_constraints.last.limits.first.quantity
+    end
   end
 
   context 'streaming version of "Certaines n’avaient jamais vu la mer"' do

@@ -352,7 +352,7 @@ module ONIX
                   :subjects,
                   :collections,
                   :extents,
-                  :epub_technical_protections,
+                  :epub_technical_protections, :epub_usage_constraints,
                   :audience_range
 
     def initialize
