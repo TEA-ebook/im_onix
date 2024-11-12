@@ -630,8 +630,7 @@ module ONIX
 
       grouped_supplies={}
       territoried_supplies.each do |supply|
-        qualifier = supply[:qualifier].nil? ? "" : "_#{supply[:qualifier]}"
-        pr_key="#{supply[:available]}_#{supply[:including_tax]}_#{supply[:currency]}_#{supply[:territory].join('_')}#{qualifier}"
+        pr_key="#{supply[:available]}_#{supply[:including_tax]}_#{supply[:currency]}_#{supply[:territory].join('_')}#{supplies_pnb_key(supply)}"
         grouped_supplies[pr_key]||=[]
         grouped_supplies[pr_key] << supply
       end
@@ -676,8 +675,7 @@ module ONIX
       grouped_territories_supplies={}
       grouped_supplies.each do |ksup,supply|
         fsupply=supply.first
-        qualifier = fsupply[:qualifier].nil? ? "" : "_#{fsupply[:qualifier]}"
-        pr_key="#{fsupply[:available]}_#{fsupply[:including_tax]}_#{fsupply[:currency]}_#{fsupply[:territory].join('_')}#{qualifier}"
+        pr_key="#{fsupply[:available]}_#{fsupply[:including_tax]}_#{fsupply[:currency]}_#{fsupply[:territory].join('_')}#{supplies_pnb_key(fsupply)}"
         supply.each do |s|
           pr_key+="_#{s[:price]}_#{s[:from_date]}_#{s[:until_date]}"
         end
@@ -709,6 +707,12 @@ module ONIX
       end
 
       supplies.concat(unpriced_items)
+    end
+
+    # to avoid modifying the Redis notice, and in particular supplies whose prices may have a different qualifier, such as promotions,
+    # we check whether the qualifier is part of the list of librairies' qualifiers to indicate that it is indeed a pnb price.
+    def supplies_pnb_key(supply)
+      ['CorporateLibraryEducationPrice', 'LibraryPrice', 'SchoolLibraryPrice', 'AcademicLibraryPrice', 'PublicLibraryPrice'].include?(supply[:qualifier]) ? "_pnb" : ""
     end
 
     # :category: High level
