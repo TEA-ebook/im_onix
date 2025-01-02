@@ -60,9 +60,10 @@ module ONIX
   end
 
   class Collection < Subset
-    attr_accessor :type, :identifiers, :title_details
+    attr_accessor :type, :identifiers, :title_details, :empty
 
     def initialize
+      @empty=true
       @identifiers=[]
       @title_details=[]
     end
@@ -91,6 +92,7 @@ module ONIX
     end
     
     def parse(n)
+      @empty = n.children.empty?
       n.children.each do |t|
         case t
           when tag_match("CollectionIdentifier")
@@ -385,7 +387,10 @@ module ONIX
     end
 
     def product_title_element
-      @title_details.select { |td| td.type.human=~/DistinctiveTitle/ }.first.title_elements.select{ |te| te.level.human=~/Product/ }.first
+      distinctive_title=@title_details.select { |td| td.type.human=~/DistinctiveTitle/ }.first
+      if distinctive_title
+        distinctive_title.title_elements.select{ |te| te.level.human=~/Product/ }.first
+      end
     end
 
     def pages_extent
