@@ -120,7 +120,7 @@ module ONIX
     attr_accessor :status, :publishers, :imprints,
                   :sales_rights,
                   :publishing_dates,
-                  :sales_restrictions,
+                  :sales_restriction,
                   :city,
                   :country
 
@@ -128,7 +128,6 @@ module ONIX
       @sales_rights=[]
       @publishing_dates=[]
       @publishers=[]
-      @sales_restrictions=[]
     end
 
     def publisher
@@ -178,8 +177,8 @@ module ONIX
       return pub.date.date if pub
     end
 
-    def sales_restrictions
-      @sales_restrictions
+    def sales_restriction
+      @sales_restriction
     end
 
     def parse(n)
@@ -192,7 +191,7 @@ module ONIX
           when tag_match("PublishingDate")
             @publishing_dates << PublishingDate.from_xml(t)
           when tag_match("SalesRestriction")
-            @sales_restrictions << SalesRestriction.from_xml(t)
+            @sales_restriction = SalesRestriction.from_xml(t)
           when tag_match("Publisher")
             @publishers << Publisher.from_xml(t)
           when tag_match("CityOfPublication")

@@ -563,7 +563,7 @@ class TestImOnix < Minitest::Test
     end
 
     should "be 09" do
-      assert_equal "09", @product.sales_restrictions[0].type.code
+      assert_equal "09", @product.sales_restriction.type.code
     end
   end
 
