@@ -474,9 +474,9 @@ module ONIX
       end
     end
 
-    def sales_restriction
+    def sales_restrictions
       if @publishing_detail
-        @publishing_detail.sales_restriction
+        @publishing_detail.sales_restrictions
       end
     end
 
