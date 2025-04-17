@@ -347,7 +347,7 @@ module ONIX
     attr_accessor :title_details, :collection,
                   :languages,
                   :composition,
-                  :form, :form_details, :form_features, :form_description, :parts,
+                  :form, :form_details, :form_features, :form_description, :content_type, :parts,
                   :edition_number,
                   :edition_types,
                   :contributors,
@@ -370,6 +370,7 @@ module ONIX
       @languages=[]
       @form_details=[]
       @form_features=[]
+      @content_type=[]
       @edition_types=[]
       @audience_range=[]
     end
@@ -561,6 +562,8 @@ module ONIX
             @form_description=t.text
           when tag_match("ProductFormDetail")
             @form_details << ProductFormDetail.from_code(t.text)
+          when tag_match("ProductContentType")
+            @content_type << ProductContentType.from_code(t.text)
           when tag_match("EpubTechnicalProtection")
             @epub_technical_protections << EpubTechnicalProtection.from_code(t.text)
           when tag_match("EpubUsageConstraint")
