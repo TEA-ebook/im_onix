@@ -181,6 +181,13 @@ module ONIX
     end
   end
 
+  class ProductContentType < CodeFromYamlWithMime
+    private
+    def self.code_ident
+      81
+    end
+  end
+
   class TextType < CodeFromYaml
     private
     def self.code_ident

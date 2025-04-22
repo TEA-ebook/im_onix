@@ -211,6 +211,12 @@ class TestImOnix < Minitest::Test
       assert_equal "01", product.descriptive_detail.epub_usage_constraints.last.limits.first.unit.code
       assert_equal 5, product.descriptive_detail.epub_usage_constraints.last.limits.first.quantity
     end
+
+    should "have product content type" do
+      product = @message.products.first
+
+      assert_equal "10", product.descriptive_detail.content_type.first.code
+    end
   end
 
   context 'streaming version of "Certaines n’avaient jamais vu la mer"' do
