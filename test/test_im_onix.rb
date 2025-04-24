@@ -127,6 +127,12 @@ class TestImOnix < Minitest::Test
       end
     end
 
+    should "have parts with content types" do
+      @product.parts.each do |part|
+        assert_equal "10", part.content_types.first.code
+      end
+    end
+
     should "have a printed equivalent with a proprietary id" do
       print = @product.print_product
       assert_equal "9782752906700", print.ean
@@ -215,7 +221,7 @@ class TestImOnix < Minitest::Test
     should "have product content type" do
       product = @message.products.first
 
-      assert_equal "10", product.descriptive_detail.content_type.first.code
+      assert_equal "10", product.descriptive_detail.content_types.first.code
     end
   end
 

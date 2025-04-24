@@ -108,7 +108,7 @@ module ONIX
 
   # product part use full Product to provide file protection and file size
   class ProductPart < Subset
-    attr_accessor :identifiers, :form, :form_details, :form_description
+    attr_accessor :identifiers, :form, :form_details, :form_description, :content_types
     # full Product if referenced in ONIXMessage
     attr_accessor :product
     # this ProductPart is part of Product
@@ -120,6 +120,7 @@ module ONIX
     def initialize
       @identifiers = []
       @form_details = []
+      @content_types = []
     end
 
     # :category: High level
@@ -170,6 +171,8 @@ module ONIX
             @form_description=t.text
           when tag_match("ProductFormDetail")
             @form_details << ProductFormDetail.from_code(t.text)
+          when tag_match("ProductContentType")
+            @content_types << ProductContentType.from_code(t.text)
         end
       end
 
@@ -347,7 +350,7 @@ module ONIX
     attr_accessor :title_details, :collection,
                   :languages,
                   :composition,
-                  :form, :form_details, :form_features, :form_description, :content_type, :parts,
+                  :form, :form_details, :form_features, :form_description, :content_types, :parts,
                   :edition_number,
                   :edition_types,
                   :contributors,
@@ -370,7 +373,7 @@ module ONIX
       @languages=[]
       @form_details=[]
       @form_features=[]
-      @content_type=[]
+      @content_types=[]
       @edition_types=[]
       @audience_range=[]
     end
@@ -563,7 +566,7 @@ module ONIX
           when tag_match("ProductFormDetail")
             @form_details << ProductFormDetail.from_code(t.text)
           when tag_match("ProductContentType")
-            @content_type << ProductContentType.from_code(t.text)
+            @content_types << ProductContentType.from_code(t.text)
           when tag_match("EpubTechnicalProtection")
             @epub_technical_protections << EpubTechnicalProtection.from_code(t.text)
           when tag_match("EpubUsageConstraint")
