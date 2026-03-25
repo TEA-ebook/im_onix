@@ -730,6 +730,10 @@ class TestImOnix < Minitest::Test
       assert_equal "Le ballon", @product.publishers.last.name
       assert_equal "Copublisher", @product.publishers.last.role.human
     end
+
+    should "have biographical language" do
+      assert_equal "fre", @product.contributors.select{|c| c.role.human=="ByAuthor"}.first.biography_language
+    end
   end
 
   # from ONIX documentation

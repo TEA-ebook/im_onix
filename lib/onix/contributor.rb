@@ -2,7 +2,7 @@ require 'onix/subset'
 
 module ONIX
   class Contributor < Subset
-    attr_accessor :name_before_key, :key_names, :person_name, :inverted_name, :role, :biography_note, :place, :sequence_number, :name_identifiers
+    attr_accessor :name_before_key, :key_names, :person_name, :inverted_name, :role, :biography_note, :biography_language, :place, :sequence_number, :name_identifiers
 
     def initialize()
       @name_identifiers = []
@@ -46,6 +46,10 @@ module ONIX
       end
     end
 
+    def biography_language
+      @biography_language
+    end
+
     def parse(n)
       n.children.each do |t|
         case t
@@ -61,6 +65,7 @@ module ONIX
             @inverted_name=t.text
           when tag_match("BiographicalNote")
             @biography_note=t.text.strip
+            @biography_language=t.attribute("language").value unless t.attribute("language").nil?
           when tag_match("ContributorRole")
             @role=ContributorRole.from_code(t.text)
           when tag_match("ContributorPlace")
