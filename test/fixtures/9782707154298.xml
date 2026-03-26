@@ -67,7 +67,7 @@
           <PersonNameInverted>REIDID, Didier</PersonNameInverted>
           <NamesBeforeKey>Didier</NamesBeforeKey>
           <KeyNames>REIDID</KeyNames>
-          <BiographicalNote textformat="05">Plop</BiographicalNote>
+          <BiographicalNote textformat="05" language="fre">Plop</BiographicalNote>
         </Contributor>
         <Language>
           <LanguageRole>01</LanguageRole>
