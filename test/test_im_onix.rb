@@ -579,6 +579,102 @@ class TestImOnix < Minitest::Test
     end
   end
 
+  context "market sales restrictions" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/market_sales_restrictions.xml")
+      @product=@message.products.last
+      @markets=@product.product_supplies.map{|ps| ps.markets.first}
+    end
+
+    should "have no sales restriction on retail market" do
+      assert_equal ["FR"], @markets[0].territory.countries
+      assert_equal [], @markets[0].sales_restrictions
+    end
+
+    should "have a subscription sales restriction with dates" do
+      sr=@markets[1].sales_restrictions.first
+      assert_equal 1, @markets[1].sales_restrictions.size
+      assert_equal "13", sr.type.code
+      assert_equal "ToSubscriptionServicesOnly", sr.type.human
+      assert_equal "Subscription service", sr.sales_outlets.first.name
+      assert_equal "20261101", sr.start_date
+      assert_equal "00", sr.start_date_format
+      assert_equal "20271231", sr.end_date
+      assert_nil sr.end_date_format
+    end
+
+    should "keep invalid dates as raw strings" do
+      sr=@markets[2].sales_restrictions.first
+      assert_equal "13", sr.type.code
+      assert_equal "20261345", sr.start_date
+      assert_equal "not-a-date", sr.end_date
+    end
+  end
+
+  context "retail and subscription supplies on same market" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/market_retail_and_subscription.xml")
+      @product=@message.products.last
+      @supplies=@product.supplies(true)
+    end
+
+    should "have one supply for retail and one for subscription" do
+      assert_equal 2, @supplies.size
+    end
+
+    should "have retail price without sales restriction" do
+      retail=@supplies.find{|s| s[:sales_restrictions].empty?}
+      assert_equal ["FR"], retail[:territory]
+      assert_equal [499], retail[:prices].map{|p| p[:amount]}
+    end
+
+    should "have subscription price with sales restriction" do
+      subscription=@supplies.find{|s| s[:sales_restrictions].any?}
+      assert_equal ["FR"], subscription[:territory]
+      assert_equal [299], subscription[:prices].map{|p| p[:amount]}
+      assert_equal ["13"], subscription[:sales_restrictions].map{|sr| sr.type.code}
+      assert_equal "20261101", subscription[:sales_restrictions].first.start_date
+    end
+  end
+
+  context "retail supplies with other sales restriction on same market" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/market_retail_and_other_restriction.xml")
+      @product=@message.products.last
+      @supplies=@product.supplies(true)
+    end
+
+    should "merge supplies as without sales restriction" do
+      assert_equal 1, @supplies.size
+      assert_equal ["FR"], @supplies.first[:territory]
+      assert_equal [499, 299], @supplies.first[:prices].map{|p| p[:amount]}
+    end
+  end
+
+  context "sales restriction in sales rights" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/test_outlet.xml")
+      @product=@message.products.last
+    end
+
+    should "parse outlets and end date" do
+      srs=@product.publishing_detail.sales_rights.first.sales_restrictions
+      assert_equal 2, srs.first.sales_outlets.size
+      assert_equal "20140101", srs.last.end_date
+      assert_equal "00", srs.last.end_date_format
+    end
+
+    should "have nil dates when missing" do
+      sr=@product.publishing_detail.sales_rights.first.sales_restrictions.first
+      assert_nil sr.start_date
+      assert_nil sr.end_date
+    end
+  end
+
   context "epub with illustrations" do
     setup do
       @message = ONIX::ONIXMessage.new

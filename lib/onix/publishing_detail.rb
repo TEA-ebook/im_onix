@@ -15,7 +15,9 @@ module ONIX
   end
 
   class SalesRestriction < Subset
-    attr_accessor :type, :sales_outlets, :note, :start_date, :end_date
+    attr_accessor :type, :sales_outlets, :note
+    # raw date strings and dateformat attributes, neither parsed nor validated
+    attr_accessor :start_date, :end_date, :start_date_format, :end_date_format
 
     def initialize
       @sales_outlets=[]
@@ -31,11 +33,11 @@ module ONIX
           when tag_match("SalesRestrictionNote")
             @note = t.text
           when tag_match("StartDate")
-            fmt=t["dateformat"] || "00"
-            @start_date=ONIX::Helper.to_date(fmt,t.text)
+            @start_date=t.text.strip
+            @start_date_format=t["dateformat"]
           when tag_match("EndDate")
-            fmt=t["dateformat"] || "00"
-            @end_date=ONIX::Helper.to_date(fmt,t.text)
+            @end_date=t.text.strip
+            @end_date_format=t["dateformat"]
         end
       end
     end
@@ -61,20 +63,6 @@ module ONIX
         end
       end
     end
-  end
-
-  class SalesRestriction < Subset
-    attr_accessor :type
-
-    def parse(n)
-      n.children.each do |t|
-        case t.name
-          when "SalesRestrictionType"
-            @type = SalesRestrictionType.from_code(t.text)
-        end
-      end
-    end
-
   end
 
   class PublishingDate < Subset

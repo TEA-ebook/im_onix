@@ -17,13 +17,19 @@ module ONIX
   end
 
   class Market < Subset
-    attr_accessor :territory
+    attr_accessor :territory, :sales_restrictions
+
+    def initialize
+      @sales_restrictions=[]
+    end
 
     def parse(n)
       n.children.each do |t|
         case t
           when tag_match("Territory")
             @territory=Territory.from_xml(t)
+          when tag_match("SalesRestriction")
+            @sales_restrictions << SalesRestriction.from_xml(t)
         end
       end
     end
