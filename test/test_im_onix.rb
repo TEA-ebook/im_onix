@@ -612,6 +612,48 @@ class TestImOnix < Minitest::Test
     end
   end
 
+  context "retail and subscription supplies on same market" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/market_retail_and_subscription.xml")
+      @product=@message.products.last
+      @supplies=@product.supplies(true)
+    end
+
+    should "have one supply for retail and one for subscription" do
+      assert_equal 2, @supplies.size
+    end
+
+    should "have retail price without sales restriction" do
+      retail=@supplies.find{|s| s[:sales_restrictions].empty?}
+      assert_equal ["FR"], retail[:territory]
+      assert_equal [499], retail[:prices].map{|p| p[:amount]}
+    end
+
+    should "have subscription price with sales restriction" do
+      subscription=@supplies.find{|s| s[:sales_restrictions].any?}
+      assert_equal ["FR"], subscription[:territory]
+      assert_equal [299], subscription[:prices].map{|p| p[:amount]}
+      assert_equal ["13"], subscription[:sales_restrictions].map{|sr| sr.type.code}
+      assert_equal "20261101", subscription[:sales_restrictions].first.start_date
+    end
+  end
+
+  context "retail supplies with other sales restriction on same market" do
+    setup do
+      @message = ONIX::ONIXMessage.new
+      @message.parse("test/fixtures/market_retail_and_other_restriction.xml")
+      @product=@message.products.last
+      @supplies=@product.supplies(true)
+    end
+
+    should "merge supplies as without sales restriction" do
+      assert_equal 1, @supplies.size
+      assert_equal ["FR"], @supplies.first[:territory]
+      assert_equal [499, 299], @supplies.first[:prices].map{|p| p[:amount]}
+    end
+  end
+
   context "sales restriction in sales rights" do
     setup do
       @message = ONIX::ONIXMessage.new
