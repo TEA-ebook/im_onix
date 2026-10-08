@@ -14,6 +14,9 @@ require 'onix/error'
 
 module ONIX
   class Product < Subset
+    # SalesRestrictionType codes : ToSubscriptionServicesOnly
+    SUBSCRIPTION_SALES_RESTRICTION_TYPES = ["13"]
+
     # Record reference
     attr_accessor :record_reference
     # NotificationType object
@@ -538,6 +541,7 @@ module ONIX
     #     :currency=>string,
     #     :territory=>string,
     #     :suppliers=>[Supplier,...],
+    #     :sales_restrictions=>[SalesRestriction,...],
     #     :prices=>[{:amount=>int,
     #                :from_date=>date,
     #                :until_date=>date,
@@ -559,6 +563,7 @@ module ONIX
           else
             market_territories = []
           end
+          market_sales_restrictions = ps.markets ? ps.markets.map{|m| m.sales_restrictions}.flatten : []
 
           ps.supply_details.each do |sd|
 
@@ -577,6 +582,7 @@ module ONIX
               supply[:available]=sd.available?
               supply[:availability]=sd.availability
               supply[:availability_date]=availability_date
+              supply[:sales_restrictions]=market_sales_restrictions
 
               supply[:price]=p.amount
               supply[:qualifier]=p.qualifier.human if p.qualifier
@@ -606,7 +612,8 @@ module ONIX
                 :availability => sd.availability,
                 :availability_date => availability_date,
                 :unpriced_item_type => sd.unpriced_item_type.human,
-                :territory => market_territories
+                :territory => market_territories,
+                :sales_restrictions => market_sales_restrictions
               }
             end
           end
@@ -615,7 +622,7 @@ module ONIX
 
       # filter on availability, date, type and territories because suppliers are always the same
       unpriced_items.uniq! do |i|
-        i.select {|k,v| [:available, :availability_date, :availability, :unpriced_item_type, :territory].include?(k) }.hash
+        [i.select {|k,v| [:available, :availability_date, :availability, :unpriced_item_type, :territory].include?(k) }, supplies_sales_restrictions_key(i)].hash
       end
 
       # Need to split supplies by territories
@@ -630,7 +637,7 @@ module ONIX
 
       grouped_supplies={}
       territoried_supplies.each do |supply|
-        pr_key="#{supply[:available]}_#{supply[:including_tax]}_#{supply[:currency]}_#{supply[:territory].join('_')}#{supplies_pnb_key(supply)}"
+        pr_key="#{supply[:available]}_#{supply[:including_tax]}_#{supply[:currency]}_#{supply[:territory].join('_')}#{supplies_pnb_key(supply)}#{supplies_sales_restrictions_key(supply)}"
         grouped_supplies[pr_key]||=[]
         grouped_supplies[pr_key] << supply
       end
@@ -675,7 +682,7 @@ module ONIX
       grouped_territories_supplies={}
       grouped_supplies.each do |ksup,supply|
         fsupply=supply.first
-        pr_key="#{fsupply[:available]}_#{fsupply[:including_tax]}_#{fsupply[:currency]}_#{fsupply[:territory].join('_')}#{supplies_pnb_key(fsupply)}"
+        pr_key="#{fsupply[:available]}_#{fsupply[:including_tax]}_#{fsupply[:currency]}_#{fsupply[:territory].join('_')}#{supplies_pnb_key(fsupply)}#{supplies_sales_restrictions_key(fsupply)}"
         supply.each do |s|
           pr_key+="_#{s[:price]}_#{s[:from_date]}_#{s[:until_date]}"
         end
@@ -694,6 +701,7 @@ module ONIX
                      :availability=>fsupply[:availability],
                      :availability_date=>fsupply[:availability_date],
                      :suppliers=>fsupply[:suppliers],
+                     :sales_restrictions=>fsupply[:sales_restrictions],
                      :prices=>supply.first.map{|s|
                        s[:amount]=s[:price]
                        s.delete(:price)
@@ -702,6 +710,7 @@ module ONIX
                        s.delete(:availability_date)
                        s.delete(:including_tax)
                        s.delete(:territory)
+                       s.delete(:sales_restrictions)
                        s
                      }}
       end
@@ -713,6 +722,12 @@ module ONIX
     # we check whether the qualifier is part of the list of librairies' qualifiers to indicate that it is indeed a pnb price.
     def supplies_pnb_key(supply)
       ['CorporateLibraryEducationPrice', 'LibraryPrice', 'SchoolLibraryPrice', 'AcademicLibraryPrice', 'PublicLibraryPrice'].include?(supply[:qualifier]) ? "_pnb" : ""
+    end
+
+    # to keep subscription supplies apart from retail and pnb ones, other sales restrictions do not change grouping
+    def supplies_sales_restrictions_key(supply)
+      supply[:sales_restrictions].select{|sr| sr.type and SUBSCRIPTION_SALES_RESTRICTION_TYPES.include?(sr.type.code)}.map{|sr|
+        "_sr#{sr.type.code}_#{sr.start_date}_#{sr.end_date}"}.sort.join
     end
 
     # :category: High level
@@ -831,7 +846,7 @@ module ONIX
     # List of ONIX outlets values
     def onix_outlets_values
       @publishing_detail.sales_rights.map{|sri|
-        sri.sales_restrictions.select{|sr| (!sr.start_date or sr.start_date <= Date.today) and (!sr.end_date or sr.end_date >= Date.today)}.map{|sr|
+        sri.sales_restrictions.map{|sr|
           sr.sales_outlets.select{|so|
             so.identifier.type.human=="OnixSalesOutletIdCode"}.map{|so| so.identifier.value}}}.flatten
     end
