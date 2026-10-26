@@ -579,6 +579,49 @@ class TestImOnix < Minitest::Test
     end
   end
 
+  {
+    "full tags" => "test/fixtures/sales_restrictions.xml",
+    "short tags" => "test/fixtures/sales_restrictions_short.xml"
+  }.each do |label, fixture|
+    context "sales restrictions with outlets (#{label})" do
+      setup do
+        @message = ONIX::ONIXMessage.new
+        @message.parse(fixture)
+        @product = @message.products.first
+        @publishing_detail = @product.publishing_detail
+        @restriction = @publishing_detail.sales_rights.first.sales_restrictions.first
+      end
+
+      should "read the type of a restriction in SalesRights" do
+        assert_equal "04", @restriction.type.code
+      end
+
+      should "read every outlet of a restriction in SalesRights" do
+        assert_equal 2, @restriction.sales_outlets.length
+        assert_equal "KBO", @restriction.sales_outlets[0].identifier.value
+        assert_equal "IMM", @restriction.sales_outlets[1].identifier.value
+      end
+
+      should "read the outlet name when present" do
+        assert_equal "Kobo", @restriction.sales_outlets[0].name
+        assert_nil @restriction.sales_outlets[1].name
+      end
+
+      should "read the note and the start and end dates" do
+        assert_equal "Exclusivité test", @restriction.note
+        assert_equal Date.new(2013, 1, 1), @restriction.start_date
+        assert_equal Date.new(2014, 1, 1), @restriction.end_date
+      end
+
+      should "read a restriction placed directly in PublishingDetail" do
+        assert_equal 1, @publishing_detail.sales_restrictions.length
+        restriction = @publishing_detail.sales_restrictions.first
+        assert_equal "09", restriction.type.code
+        assert_empty restriction.sales_outlets
+      end
+    end
+  end
+
   context "epub with illustrations" do
     setup do
       @message = ONIX::ONIXMessage.new

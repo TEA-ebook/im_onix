@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ONIXMessage xmlns="http://www.editeur.org/onix/3.0/reference" release="3.0">
+  <Header>
+    <Sender>
+      <SenderName>immatériel·fr</SenderName>
+    </Sender>
+    <SentDateTime>20130802</SentDateTime>
+    <DefaultLanguageOfText>fre</DefaultLanguageOfText>
+  </Header>
+  <Product>
+    <RecordReference>immateriel.fr-SALES02</RecordReference>
+    <NotificationType>03</NotificationType>
+    <ProductIdentifier>
+      <ProductIDType>03</ProductIDType>
+      <IDValue>9782000000002</IDValue>
+    </ProductIdentifier>
+    <DescriptiveDetail>
+      <ProductComposition>00</ProductComposition>
+      <ProductForm>ED</ProductForm>
+      <TitleDetail>
+        <TitleType>01</TitleType>
+        <TitleElement>
+          <TitleElementLevel>01</TitleElementLevel>
+          <TitleText>Titre de test</TitleText>
+        </TitleElement>
+      </TitleDetail>
+    </DescriptiveDetail>
+    <publishingdetail>
+      <salesrights>
+        <b089>07</b089>
+        <territory>
+          <x449>FR BE</x449>
+        </territory>
+        <salesrestriction>
+          <b381>04</b381>
+          <salesoutlet>
+            <salesoutletidentifier>
+              <b393>03</b393>
+              <b244>KBO</b244>
+            </salesoutletidentifier>
+            <b382>Kobo</b382>
+          </salesoutlet>
+          <salesoutlet>
+            <salesoutletidentifier>
+              <b393>03</b393>
+              <b244>IMM</b244>
+            </salesoutletidentifier>
+          </salesoutlet>
+          <x453>Exclusivité test</x453>
+          <b324 dateformat="00">20130101</b324>
+          <b325 dateformat="00">20140101</b325>
+        </salesrestriction>
+      </salesrights>
+      <salesrestriction>
+        <b381>09</b381>
+      </salesrestriction>
+    </publishingdetail>
+  </Product>
+</ONIXMessage>

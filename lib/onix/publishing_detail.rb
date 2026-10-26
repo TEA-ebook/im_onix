@@ -63,20 +63,6 @@ module ONIX
     end
   end
 
-  class SalesRestriction < Subset
-    attr_accessor :type
-
-    def parse(n)
-      n.children.each do |t|
-        case t.name
-          when "SalesRestrictionType"
-            @type = SalesRestrictionType.from_code(t.text)
-        end
-      end
-    end
-
-  end
-
   class PublishingDate < Subset
     attr_accessor :role, :date
 

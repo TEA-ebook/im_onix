@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ONIXMessage xmlns="http://www.editeur.org/onix/3.0/reference" release="3.0">
+  <Header>
+    <Sender>
+      <SenderName>immatériel·fr</SenderName>
+    </Sender>
+    <SentDateTime>20130802</SentDateTime>
+    <DefaultLanguageOfText>fre</DefaultLanguageOfText>
+  </Header>
+  <Product>
+    <RecordReference>immateriel.fr-SALES01</RecordReference>
+    <NotificationType>03</NotificationType>
+    <ProductIdentifier>
+      <ProductIDType>03</ProductIDType>
+      <IDValue>9782000000001</IDValue>
+    </ProductIdentifier>
+    <DescriptiveDetail>
+      <ProductComposition>00</ProductComposition>
+      <ProductForm>ED</ProductForm>
+      <TitleDetail>
+        <TitleType>01</TitleType>
+        <TitleElement>
+          <TitleElementLevel>01</TitleElementLevel>
+          <TitleText>Titre de test</TitleText>
+        </TitleElement>
+      </TitleDetail>
+    </DescriptiveDetail>
+    <PublishingDetail>
+      <SalesRights>
+        <SalesRightsType>07</SalesRightsType>
+        <Territory>
+          <CountriesIncluded>FR BE</CountriesIncluded>
+        </Territory>
+        <SalesRestriction>
+          <SalesRestrictionType>04</SalesRestrictionType>
+          <SalesOutlet>
+            <SalesOutletIdentifier>
+              <SalesOutletIDType>03</SalesOutletIDType>
+              <IDValue>KBO</IDValue>
+            </SalesOutletIdentifier>
+            <SalesOutletName>Kobo</SalesOutletName>
+          </SalesOutlet>
+          <SalesOutlet>
+            <SalesOutletIdentifier>
+              <SalesOutletIDType>03</SalesOutletIDType>
+              <IDValue>IMM</IDValue>
+            </SalesOutletIdentifier>
+          </SalesOutlet>
+          <SalesRestrictionNote>Exclusivité test</SalesRestrictionNote>
+          <StartDate dateformat="00">20130101</StartDate>
+          <EndDate dateformat="00">20140101</EndDate>
+        </SalesRestriction>
+      </SalesRights>
+      <SalesRestriction>
+        <SalesRestrictionType>09</SalesRestrictionType>
+      </SalesRestriction>
+    </PublishingDetail>
+  </Product>
+</ONIXMessage>
